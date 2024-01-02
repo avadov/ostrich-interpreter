@@ -1,2 +1,2 @@
 # ostrich-interpreter
-An experimental interpreted programming language
+Ostrich is an experimental interpreted programming language. The interpreter has been written in the Go programming language.
