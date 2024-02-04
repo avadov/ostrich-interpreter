@@ -1,6 +1,8 @@
 package ast
 // Abstract Syntax Tree
 
+import "ostrich-interpreter/token"
+
 type Node interface {
 	TokenLiteral() string
 }
@@ -25,4 +27,16 @@ func (p *Program) TokenLiteral() string {
 	} else {
 		return ""
 	}
+}
+
+type LetStatement struct {
+	Token token.Token  // the token.LET token
+	Name *Identifier
+	Value Expression
+}
+
+func (ls *LetStatement) statementNode() {}
+
+func (ls *LetStatement) TokenLiteral() string {
+	return ls.Token.Literal
 }
