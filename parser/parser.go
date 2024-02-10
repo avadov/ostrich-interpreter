@@ -13,8 +13,8 @@ type Parser struct {
 	peekToken token.Token  // next token
 }
 
-// New function creates a new parser.
-func New(l *lexer.Lexer) *Parser {
+// NewParser function creates a new parser.
+func NewParser(l *lexer.Lexer) *Parser {
 	p := &Parser{l: l}
 
 	// Set curToken and peekToken
@@ -31,4 +31,5 @@ func (p *Parser) nextToken() {
 
 func (p *Parser) ParseProgram() *ast.Program {
 	// TODO
+	return nil
 }
