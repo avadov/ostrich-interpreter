@@ -4,6 +4,7 @@ import (
 	"ostrich-interpreter/token"
 	"ostrich-interpreter/lexer"
 	"ostrich-interpreter/ast"
+	"fmt"
 )
 
 type Parser struct {
@@ -11,11 +12,16 @@ type Parser struct {
 
 	curToken token.Token  // current token
 	peekToken token.Token  // next token
+
+	errors []string
 }
 
 // NewParser function creates a new parser.
 func NewParser(l *lexer.Lexer) *Parser {
-	p := &Parser{l: l}
+	p := &Parser{
+		l: l,
+		errors: []string{},
+	}
 
 	// Set curToken and peekToken
 	p.nextToken()
@@ -62,8 +68,9 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 		return nil
 	}
 
-	stmt.Name = &ast.Identifier{Token: p.curToken,
-		Value: p.curToken.Literal
+	stmt.Name = &ast.Identifier{
+		Token: p.curToken,
+		Value: p.curToken.Literal,
 	}
 
 	if !p.expectPeek(token.ASSIGN) {
@@ -95,6 +102,18 @@ func (p *Parser) expectPeek(t token.TokenType) bool {
 		p.nextToken()
 		return true
 	} else {
+		p.peekError(t)
 		return false
 	}
+}
+
+func (p *Parser) Errors() []string {
+	return p.errors
+}
+
+// Adds an error to errors slice when the type of peekToken doesn't match the expectation
+func (p *Parser) peekError(t token.TokenType) {
+	msg := fmt.Sprintf("Expected next token to be %s, got %s instead",
+					   t, p.peekToken.Type)
+	p.errors = append(p.errors, msg)
 }
