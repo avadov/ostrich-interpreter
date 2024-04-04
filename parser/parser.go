@@ -1,17 +1,17 @@
 package parser
 
 import (
-	"ostrich-interpreter/token"
-	"ostrich-interpreter/lexer"
-	"ostrich-interpreter/ast"
 	"fmt"
+	"ostrich-interpreter/ast"
+	"ostrich-interpreter/lexer"
+	"ostrich-interpreter/token"
 )
 
 type Parser struct {
 	l *lexer.Lexer
 
-	curToken token.Token  // current token
-	peekToken token.Token  // next token
+	curToken  token.Token // current token
+	peekToken token.Token // next token
 
 	errors []string
 }
@@ -19,7 +19,7 @@ type Parser struct {
 // NewParser function creates a new parser.
 func NewParser(l *lexer.Lexer) *Parser {
 	p := &Parser{
-		l: l,
+		l:      l,
 		errors: []string{},
 	}
 
@@ -56,6 +56,8 @@ func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
 	case token.LET:
 		return p.parseLetStatement()
+	case token.RETURN:
+		return p.parseReturnStatement()
 	default:
 		return nil
 	}
@@ -114,6 +116,18 @@ func (p *Parser) Errors() []string {
 // Adds an error to errors slice when the type of peekToken doesn't match the expectation
 func (p *Parser) peekError(t token.TokenType) {
 	msg := fmt.Sprintf("Expected next token to be %s, got %s instead",
-					   t, p.peekToken.Type)
+		t, p.peekToken.Type)
 	p.errors = append(p.errors, msg)
+}
+
+func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
+	stmt := &ast.ReturnStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	// TODO: Expression parsing
+	for !p.curTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
+	return stmt
 }
