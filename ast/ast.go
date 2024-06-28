@@ -282,7 +282,7 @@ func (bs *BlockStatement) String() string {
 //////////////////////////////////////////////
 
 type FunctionLiteral struct {
-	Token      token.Token // The "fn" token
+	Token      token.Token // The "func" token
 	Parameters []*Identifier
 	Body       *BlockStatement
 }
