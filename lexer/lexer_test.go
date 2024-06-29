@@ -1,15 +1,15 @@
 package lexer
 
 import (
-	"testing"
 	"ostrich-interpreter/token"
+	"testing"
 )
 
 func TestNextToken(t *testing.T) {
 	input := `=+(){},;`
 
 	tests := []struct {
-		expectedType token.TokenType
+		expectedType    token.TokenType
 		expectedLiteral string
 	}{
 		{token.ASSIGN, "="},
@@ -30,16 +30,15 @@ func TestNextToken(t *testing.T) {
 
 		if tok.Type != tt.expectedType {
 			t.Fatalf("tests[%d] - tokentype wrong. expected = %q, got = %q",
-					 i, tt.expectedType, tok.Type)
+				i, tt.expectedType, tok.Type)
 		}
 
 		if tok.Literal != tt.expectedLiteral {
 			t.Fatalf("tests[%d] - literal wrong. expected = %q, got = %q",
-					 i, tt.expectedLiteral, tok.Literal)
+				i, tt.expectedLiteral, tok.Literal)
 		}
 	}
 }
-
 
 func TestNextToken2(t *testing.T) {
 	input := `let five = 5;
@@ -57,9 +56,11 @@ func TestNextToken2(t *testing.T) {
 		}
 		10 == 10;
 		10 != 9;
+		"foobar"
+		"foo bar"
 		`
 	tests := []struct {
-		expectedType token.TokenType
+		expectedType    token.TokenType
 		expectedLiteral string
 	}{
 		{token.LET, "let"},
@@ -135,6 +136,8 @@ func TestNextToken2(t *testing.T) {
 		{token.NOT_EQ, "!="},
 		{token.INT, "9"},
 		{token.SEMICOLON, ";"},
+		{token.STRING, "foobar"},
+		{token.STRING, "foo bar"},
 		{token.EOF, ""},
 	}
 
@@ -145,12 +148,12 @@ func TestNextToken2(t *testing.T) {
 
 		if tok.Type != tt.expectedType {
 			t.Fatalf("tests[%d] - tokentype wrong. expected = %q, got = %q",
-					 i, tt.expectedType, tok.Type)
+				i, tt.expectedType, tok.Type)
 		}
 
 		if tok.Literal != tt.expectedLiteral {
 			t.Fatalf("tests[%d] - literal wrong. expected = %q, got = %q",
-					 i, tt.expectedLiteral, tok.Literal)
+				i, tt.expectedLiteral, tok.Literal)
 		}
 	}
 }
