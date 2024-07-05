@@ -69,17 +69,17 @@ Unary:
 
 Binary:
 
-`+` sum
-`-` subtraction
-`*` multiplication
-`/` division
+`+` sum   
+`-` subtraction   
+`*` multiplication   
+`/` division   
 
 ### Comparison operators
 
-`==` equal
-`!=` not equal
-`<` less
-`>` greater
+`==` equal  
+`!=` not equal  
+`<` less  
+`>` greater  
 
 ### String operators
 
@@ -102,10 +102,10 @@ myArray[3](2);
 
 There are some built-in functions that work with arrays:
 
-`len(myArray)` - the number of elements in `myArray`;
-`first(myArray)` - returns the first element of `myArray`;
-`rest(myArray)` - returns a *new* array containing all elements of `myArray`, except the first one (the `cdr` function). *It returns a newly allocated array!*;
-`last(myArray)` - returns the last element of `myArray`;
+`len(myArray)` - the number of elements in `myArray`;  
+`first(myArray)` - returns the first element of `myArray`;  
+`rest(myArray)` - returns a *new* array containing all elements of `myArray`, except the first one (the `cdr` function). *It returns a newly allocated array!*;  
+`last(myArray)` - returns the last element of `myArray`;  
 `push(myArray, "four")` - allocates a new array with the same elements as the old one plus the new, pushed element. Doesn’t modify the given array.
 
 ### Dictionaries
